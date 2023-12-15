@@ -1,5 +1,4 @@
-﻿using BepInEx.Logging;
-using DunGen;
+﻿using DunGen;
 using GameNetcodeStuff;
 using HarmonyLib;
 using Mimics;
@@ -17,21 +16,30 @@ namespace MimicKoreanPatch
     [HarmonyPatch(typeof(StartOfRound))]
     internal class StartOfRoundPatch
     {
+        public static float spawnDelayTimer = 0;
         [HarmonyPostfix]
-        [HarmonyPatch("Update")]
-        private static void Update_Postfix()
+        [HarmonyPatch("LateUpdate")]
+        private static void LateUpdate_Postfix()
         {
-            MimicDoor[] mimicDoors = UnityEngine.Object.FindObjectsOfType<MimicDoor>();
-            foreach (MimicDoor mimicDoor in mimicDoors)
+            spawnDelayTimer += Time.deltaTime;
+            if (spawnDelayTimer > 5)
             {
-                if (mimicDoor.interactTrigger != null)
+                MimicDoor[] mimicDoors = UnityEngine.Object.FindObjectsOfType<MimicDoor>();
+                foreach (MimicDoor mimicDoor in mimicDoors)
                 {
-                    mimicDoor.interactTrigger.hoverTip = "나가기 : [LMB]";
-                    mimicDoor.interactTrigger.holdTip = "나가기 : [LMB]";
-                }
-                else
-                {
-                    Debug.LogError(mimicDoor.name + " doesnt have InteractTrigger");
+                    if (mimicDoor.interactTrigger != null)
+                    {
+                        if (mimicDoor.interactTrigger.hoverTip == "Feed : [LMB]") { mimicDoor.interactTrigger.hoverTip = "먹히기 : [LMB]"; }
+                        if (mimicDoor.interactTrigger.holdTip == "Feed : [LMB]") { mimicDoor.interactTrigger.holdTip = "먹히기 : [LMB]"; }
+                        if (mimicDoor.interactTrigger.hoverTip == "Exit : [LMB]") { mimicDoor.interactTrigger.hoverTip = "나가기 : [LMB]"; }
+
+                        if (mimicDoor.interactTrigger.holdTip == "DIE : [LMB]") { mimicDoor.interactTrigger.holdTip = "죽기 : [LMB]"; }
+                        if (mimicDoor.interactTrigger.hoverTip == "Exit : [LMB]") { mimicDoor.interactTrigger.holdTip = "나가기 : [LMB]"; }
+                    }
+                    else
+                    {
+                        Debug.LogError(mimicDoor.name + " doesnt have InteractTrigger");
+                    }
                 }
             }
         }
