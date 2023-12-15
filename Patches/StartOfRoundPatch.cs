@@ -32,6 +32,7 @@ namespace MimicKoreanPatch
                         if (mimicDoor.interactTrigger.hoverTip == "Feed : [LMB]") { mimicDoor.interactTrigger.hoverTip = "먹히기 : [LMB]"; }
                         if (mimicDoor.interactTrigger.holdTip == "Feed : [LMB]") { mimicDoor.interactTrigger.holdTip = "먹히기 : [LMB]"; }
                         if (mimicDoor.interactTrigger.hoverTip == "Exit : [LMB]") { mimicDoor.interactTrigger.hoverTip = "나가기 : [LMB]"; }
+                        if (mimicDoor.interactTrigger.holdTip == "Exit : [LMB]") { mimicDoor.interactTrigger.holdTip = "나가기 : [LMB]"; }
 
                         if (mimicDoor.interactTrigger.holdTip == "DIE : [LMB]") { mimicDoor.interactTrigger.holdTip = "죽기 : [LMB]"; }
                         if (mimicDoor.interactTrigger.hoverTip == "Exit : [LMB]") { mimicDoor.interactTrigger.holdTip = "나가기 : [LMB]"; }
